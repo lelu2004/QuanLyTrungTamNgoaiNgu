@@ -1,0 +1,53 @@
+﻿@{
+    ViewBag.Title = "Dashboard";
+}
+
+<h2>Dashboard - Thống kê tổng quan</h2>
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="card text-white bg-primary mb-3">
+            <div class="card-body">
+                <h5 class="card-title">Tổng số học viên</h5>
+                <p class="card-text">@ViewBag.TotalStudents</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card text-white bg-success mb-3">
+            <div class="card-body">
+                <h5 class="card-title">Tổng số giáo viên</h5>
+                <p class="card-text">@ViewBag.TotalTeachers</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card text-white bg-warning mb-3">
+            <div class="card-body">
+                <h5 class="card-title">Tổng số lớp học</h5>
+                <p class="card-text">@ViewBag.TotalClasses</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Biểu đồ thống kê -->
+<canvas id="classChart" width="400" height="200"></canvas>
+
+<script>
+    var ctx = document.getElementById('classChart').getContext('2d');
+    var classChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Học viên', 'Giáo viên', 'Lớp học'],
+            datasets: [{
+                label: 'Thống kê trung tâm',
+                data: [@ViewBag.TotalStudents, @ViewBag.TotalTeachers, @ViewBag.TotalClasses],
+                backgroundColor: ['#007bff', '#28a745', '#ffc107']
+            }]
+        },
+        options: {
+            responsive: true
+        }
+    });
+</script>
